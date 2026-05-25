@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Grão & Poesia — Cafeteria Literária</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Source+Sans+3:wght@400;600&family=DM+Sans:wght@500&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --cream:#FBF6EF;--coffee:#5C3317;--terra:#D4714A;--leaf:#4A6741;--gold:#C9A84C;
+  --ff-d:'Playfair Display',serif;--ff-b:'Source Sans 3',sans-serif;--ff-l:'DM Sans',sans-serif;
+}
+body{font-family:var(--ff-b);background:var(--cream);color:var(--coffee)}
+img{display:block}
+button{cursor:pointer;font-family:inherit}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:rgba(251,246,239,.96);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid rgba(92,51,23,.1);padding:0 2.5rem;display:flex;align-items:center;justify-content:space-between;height:64px}
+.nav-logo{display:flex;align-items:center;gap:8px;font-family:var(--ff-d);font-style:italic;font-size:1.25rem;color:var(--coffee);background:none;border:none;padding:0}
+.nav-links{display:flex;gap:1.8rem;list-style:none}
+.nav-links button{background:none;border:none;font-family:var(--ff-l);font-size:.85rem;color:var(--coffee);transition:color .2s;padding:4px 0}
+.nav-links button:hover,.nav-links button.active{color:var(--terra)}
+
+/* PAGE ANIMATION */
+.page{min-height:100vh;animation:fadeIn .35s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+/* BACK BAR */
+.back-bar{background:var(--cream);padding:.9rem 2.5rem;border-bottom:1px solid rgba(92,51,23,.08);display:flex;align-items:center}
+.back-btn{display:flex;align-items:center;gap:6px;background:none;border:none;font-family:var(--ff-l);font-size:.83rem;color:var(--coffee);transition:color .2s;padding:0}
+.back-btn:hover{color:var(--terra)}
+
+/* HERO */
+.hero{padding:4.5rem 3rem;display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:center;min-height:88vh}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(212,113,74,.12);color:var(--terra);padding:5px 13px;border-radius:18px;font-family:var(--ff-l);font-size:.75rem;margin-bottom:1.3rem}
+.hero h1{font-family:var(--ff-d);font-style:italic;font-size:clamp(2.2rem,4vw,3.8rem);line-height:1.15;margin-bottom:1.3rem}
+.hero p{font-size:1rem;line-height:1.85;color:rgba(92,51,23,.7);margin-bottom:2.2rem;max-width:450px}
+.btn-row{display:flex;gap:.9rem;flex-wrap:wrap}
+.btn-fill{background:var(--coffee);color:var(--cream);padding:12px 24px;border-radius:9px;font-family:var(--ff-l);font-size:.85rem;border:none;transition:background .2s,transform .15s}
+.btn-fill:hover{background:var(--terra);transform:translateY(-2px)}
+.btn-fill:active{transform:scale(.97)}
+.btn-ghost{background:transparent;color:var(--coffee);padding:11px 24px;border-radius:9px;font-family:var(--ff-l);font-size:.85rem;border:1.5px solid var(--coffee);transition:color .2s,border-color .2s,transform .15s}
+.btn-ghost:hover{color:var(--terra);border-color:var(--terra);transform:translateY(-2px)}
+.btn-ghost:active{transform:scale(.97)}
+.hero-img-wrap{position:relative}
+.hero-img-bg{position:absolute;inset:-14px;background:rgba(212,113,74,.15);border-radius:26px;transform:rotate(3deg)}
+.hero-img-wrap img{width:100%;border-radius:20px;position:relative;object-fit:cover;height:480px;box-shadow:0 20px 60px rgba(92,51,23,.2)}
+
+/* ABOUT */
+.about-strip{background:var(--coffee);color:var(--cream);padding:5rem 3rem;display:grid;grid-template-columns:1fr 1fr;gap:4.5rem;align-items:center}
+.about-strip img{width:100%;border-radius:16px;height:400px;object-fit:cover}
+.abt-eye{display:flex;align-items:center;gap:7px;color:var(--gold);font-family:var(--ff-l);font-size:.78rem;margin-bottom:.8rem}
+.about-strip h2{font-family:var(--ff-d);font-style:italic;font-size:2.4rem;margin-bottom:1.3rem;color:var(--cream)}
+.about-strip p{line-height:1.85;color:rgba(251,246,239,.75);font-size:.92rem;margin-bottom:.9rem}
+.stats{display:flex;gap:2.5rem;margin-top:2rem}
+.stat-n{font-family:var(--ff-d);font-size:1.9rem;color:var(--gold);display:block}
+.stat-l{font-family:var(--ff-l);font-size:.75rem;color:rgba(251,246,239,.55)}
+
+/* PREVIEW */
+.preview-sec{padding:5rem 3rem;background:var(--cream)}
+.sec-hdr{text-align:center;margin-bottom:2.5rem}
+.sec-badge{display:inline-block;padding:5px 13px;border-radius:18px;font-family:var(--ff-l);font-size:.72rem;margin-bottom:.8rem;background:rgba(212,113,74,.12);color:var(--terra)}
+.sec-hdr h2{font-family:var(--ff-d);font-style:italic;font-size:2.5rem;margin-bottom:.4rem;color:var(--coffee)}
+.sec-hdr p{color:rgba(92,51,23,.58);font-size:.9rem}
+.preview-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.3rem;margin-bottom:2rem}
+.center-btn{text-align:center}
+
+/* CARDS */
+.m-card{background:white;border-radius:16px;padding:1.5rem;box-shadow:0 2px 12px rgba(92,51,23,.07);transition:transform .25s,box-shadow .25s}
+.m-card:hover{transform:translateY(-7px) rotate(-.5deg);box-shadow:0 12px 30px rgba(92,51,23,.13)}
+.m-card.clickable{cursor:pointer}
+.m-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:.8rem}
+.m-icon{width:34px;height:34px;background:rgba(212,113,74,.1);border-radius:9px;display:flex;align-items:center;justify-content:center;color:var(--terra);flex-shrink:0}
+.m-name{font-family:var(--ff-d);font-size:.95rem;color:var(--coffee);margin-left:8px;flex:1}
+.m-price{font-family:var(--ff-l);font-size:.88rem;color:var(--gold);font-weight:600}
+.m-desc{font-size:.82rem;line-height:1.6;color:rgba(92,51,23,.6)}
+.m-badge{display:inline-block;background:var(--terra);color:white;font-family:var(--ff-l);font-size:.67rem;padding:2px 8px;border-radius:10px;margin-bottom:.6rem}
+.m-badge.gold{background:var(--gold);color:var(--coffee)}
+
+/* EVENTS PREVIEW */
+.events-preview{background:var(--leaf);padding:5rem 3rem}
+.events-preview .sec-hdr h2{color:var(--cream)}
+.events-preview .sec-hdr p{color:rgba(251,246,239,.65)}
+.events-preview .sec-badge{background:rgba(251,246,239,.15);color:rgba(251,246,239,.85)}
+.ev-preview-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.2rem;margin-bottom:2rem}
+.ev-mini{background:var(--cream);border-radius:16px;padding:1.5rem;display:flex;gap:1rem;align-items:flex-start}
+.ev-mini h3{font-family:var(--ff-d);font-size:1.05rem;color:var(--coffee);margin-bottom:.35rem}
+.ev-mini p{font-size:.82rem;color:rgba(92,51,23,.62);line-height:1.55;margin-bottom:.6rem}
+.ev-time{display:inline-flex;align-items:center;gap:4px;font-family:var(--ff-l);font-size:.72rem;color:var(--terra);background:rgba(212,113,74,.1);padding:3px 9px;border-radius:12px}
+.ev-ico{width:46px;height:46px;background:var(--terra);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;flex-shrink:0}
+
+/* PAGE HERO */
+.page-hero{background:var(--coffee);color:var(--cream);padding:3.5rem 3rem;text-align:center}
+.page-hero h1{font-family:var(--ff-d);font-style:italic;font-size:2.8rem;margin-bottom:.6rem}
+.page-hero p{color:rgba(251,246,239,.7);font-size:.95rem}
+
+/* CARDAPIO */
+.cardapio-body{padding:3rem;background:var(--cream)}
+.tabs{display:flex;gap:.7rem;justify-content:center;margin-bottom:2.5rem;flex-wrap:wrap}
+.tab{padding:10px 22px;border-radius:10px;font-family:var(--ff-l);font-size:.83rem;border:1.5px solid rgba(92,51,23,.2);transition:background .2s,color .2s,border-color .2s}
+.tab.active{background:var(--coffee);color:var(--cream);border-color:var(--coffee)}
+.tab:not(.active){background:white;color:var(--coffee)}
+.tab:not(.active):hover{background:rgba(92,51,23,.06)}
+.menu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.3rem}
+
+/* CAFE DETAIL */
+.detail-body{padding:3rem;display:grid;grid-template-columns:1fr 1.1fr;gap:4rem;align-items:start;background:var(--cream)}
+.detail-img-wrap{position:relative}
+.detail-img-bg{position:absolute;inset:-12px;background:rgba(212,113,74,.13);border-radius:24px;transform:rotate(2deg)}
+.detail-img{width:100%;border-radius:18px;height:420px;object-fit:cover;position:relative;box-shadow:0 16px 48px rgba(92,51,23,.18)}
+.detail-badge{display:inline-block;background:var(--terra);color:white;font-family:var(--ff-l);font-size:.72rem;padding:3px 10px;border-radius:10px;margin-bottom:.8rem}
+.detail-price{font-family:var(--ff-d);font-size:2rem;color:var(--gold);margin-bottom:1rem}
+.detail-name{font-family:var(--ff-d);font-style:italic;font-size:2.2rem;color:var(--coffee);line-height:1.2;margin-bottom:.5rem}
+.detail-desc{color:rgba(92,51,23,.7);line-height:1.8;margin-bottom:1.5rem;font-size:.95rem}
+.detail-section{margin-bottom:1.5rem}
+.detail-section h3{font-family:var(--ff-l);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--terra);margin-bottom:.7rem}
+.tags{display:flex;flex-wrap:wrap;gap:.5rem}
+.tag{background:rgba(92,51,23,.07);color:var(--coffee);padding:5px 12px;border-radius:10px;font-family:var(--ff-l);font-size:.78rem}
+.sizes{display:flex;gap:.7rem}
+.size-btn{padding:9px 18px;border-radius:9px;font-family:var(--ff-l);font-size:.82rem;border:1.5px solid rgba(92,51,23,.2);background:white;color:var(--coffee);transition:all .2s}
+.size-btn.sel{background:var(--coffee);color:var(--cream);border-color:var(--coffee)}
+.size-btn:hover:not(.sel){border-color:var(--terra);color:var(--terra)}
+.stars{display:flex;align-items:center;gap:4px;margin-bottom:.8rem}
+.star{color:var(--gold);font-size:1rem}
+.star.empty{color:rgba(92,51,23,.2)}
+.reviews{display:flex;flex-direction:column;gap:.9rem;margin-top:.7rem}
+.review{background:white;border-radius:12px;padding:1rem;box-shadow:0 1px 8px rgba(92,51,23,.06)}
+.review-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:.4rem}
+.review-name{font-family:var(--ff-l);font-size:.82rem;font-weight:600;color:var(--coffee)}
+.review-text{font-size:.82rem;color:rgba(92,51,23,.65);line-height:1.6}
+.action-btns{display:flex;gap:.8rem;margin-top:1.5rem;flex-wrap:wrap}
+.btn-terra{background:var(--terra);color:white;padding:11px 22px;border-radius:9px;font-family:var(--ff-l);font-size:.83rem;border:none;transition:background .2s}
+.btn-terra:hover{background:#c0603e}
+.btn-outline-sm{background:transparent;color:var(--coffee);padding:10px 20px;border-radius:9px;font-family:var(--ff-l);font-size:.83rem;border:1.5px solid rgba(92,51,23,.25);transition:all .2s;display:inline-flex;align-items:center;gap:5px}
+.btn-outline-sm:hover{border-color:var(--terra);color:var(--terra)}
+.btn-outline-sm.fav{color:var(--terra);border-color:var(--terra)}
+.related-sec{padding:0 3rem 3.5rem;background:var(--cream)}
+.related-sec h2{font-family:var(--ff-d);font-style:italic;font-size:1.8rem;margin-bottom:1.5rem;color:var(--coffee)}
+.related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+
+/* EVENTS PAGE */
+.ev-page-body{padding:3rem;background:var(--leaf)}
+.ev-full-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.3rem}
+.ev-card{background:var(--cream);border-radius:18px;padding:2rem;transition:box-shadow .2s}
+.ev-card:hover{box-shadow:0 8px 26px rgba(0,0,0,.13)}
+.ev-card-top{display:flex;gap:1rem;align-items:flex-start;margin-bottom:1rem}
+.ev-icon{width:50px;height:50px;background:var(--terra);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;flex-shrink:0}
+.ev-card h3{font-family:var(--ff-d);font-size:1.1rem;color:var(--coffee);margin-bottom:.35rem;display:flex;align-items:center;gap:7px}
+.ev-card>div>p,.ev-card .ev-card-top>div>p{font-size:.83rem;color:rgba(92,51,23,.65);line-height:1.6}
+.ev-time-tag{display:inline-flex;align-items:center;gap:5px;font-family:var(--ff-l);font-size:.72rem;color:var(--terra);background:rgba(212,113,74,.1);padding:4px 10px;border-radius:12px;margin:.7rem 0;margin-right:auto}
+.ev-btn{background:var(--coffee);color:var(--cream);padding:9px 17px;border-radius:8px;font-family:var(--ff-l);font-size:.78rem;border:none;display:inline-flex;align-items:center;gap:5px;transition:background .2s}
+.ev-btn:hover{background:var(--terra)}
+.ev-details-panel{margin-top:1.2rem;padding-top:1.2rem;border-top:1px solid rgba(92,51,23,.1)}
+.ev-details-panel h4{font-family:var(--ff-l);font-size:.72rem;text-transform:uppercase;letter-spacing:.07em;color:var(--terra);margin-bottom:.6rem}
+.ev-item{display:flex;align-items:flex-start;gap:6px;font-size:.81rem;color:rgba(92,51,23,.72);margin-bottom:.38rem;line-height:1.5}
+.ev-note{font-size:.78rem;color:rgba(92,51,23,.58);background:rgba(92,51,23,.05);padding:.65rem 1rem;border-radius:8px;margin-top:.7rem;line-height:1.6}
+.ev-close-btn{background:transparent;color:var(--coffee);border:1.5px solid rgba(92,51,23,.2);padding:7px 15px;border-radius:8px;font-family:var(--ff-l);font-size:.75rem;margin-top:.8rem;display:inline-flex;align-items:center;gap:5px;transition:all .2s}
+.ev-close-btn:hover{border-color:var(--terra);color:var(--terra)}
+
+/* FOOTER */
+footer{background:var(--coffee);color:var(--cream);padding:3.5rem 3rem 1.8rem}
+.footer-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3rem;margin-bottom:2.2rem}
+.footer-logo{display:flex;align-items:center;gap:8px;font-family:var(--ff-d);font-style:italic;font-size:1.15rem;margin-bottom:.8rem}
+.footer-tagline{font-size:.82rem;color:rgba(251,246,239,.5);line-height:1.75}
+.footer-col h4{font-family:var(--ff-l);font-size:.68rem;letter-spacing:.09em;color:var(--gold);text-transform:uppercase;margin-bottom:1rem}
+.footer-col p{font-size:.82rem;color:rgba(251,246,239,.62);line-height:2}
+.c-item{display:flex;align-items:flex-start;gap:7px;font-size:.82rem;color:rgba(251,246,239,.62);margin-bottom:.5rem;transition:color .2s}
+.c-item:hover{color:var(--gold)}
+.footer-copy{border-top:1px solid rgba(251,246,239,.08);padding-top:1.3rem;text-align:center;font-size:.72rem;color:rgba(251,246,239,.3);font-family:var(--ff-l)}
+
+/* ICONS */
+svg.ic{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;display:inline-block;vertical-align:middle}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr;min-height:auto;padding:3rem 1.5rem}
+  .hero-img-wrap{display:none}
+  .about-strip{grid-template-columns:1fr;padding:3rem 1.5rem}
+  .about-strip img{height:260px}
+  .preview-grid,.menu-grid,.related-grid{grid-template-columns:repeat(2,1fr)}
+  .ev-preview-grid,.ev-full-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr;gap:2rem}
+  .detail-body{grid-template-columns:1fr;padding:2rem 1.5rem}
+  .detail-img{height:280px}
+  .preview-sec,.cardapio-body,.ev-page-body,.related-sec{padding:3rem 1.5rem}
+  nav{padding:0 1.5rem}
+  .back-bar{padding:.9rem 1.5rem}
+  footer{padding:2.5rem 1.5rem 1.5rem}
+}
+@media(max-width:600px){
+  .preview-grid,.menu-grid,.related-grid{grid-template-columns:1fr}
+  .nav-links{gap:1rem}
+  .nav-links button{font-size:.78rem}
+}
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script>
+// ── ICONS ──────────────────────────────────────────────────────────────────
+const I={
+  coffee:`<svg class="ic" viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>`,
+  book:`<svg class="ic" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>`,
+  cal:`<svg class="ic" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`,
+  pen:`<svg class="ic" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>`,
+  map:`<svg class="ic" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>`,
+  phone:`<svg class="ic" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.64 3.37 2 2 0 0 1 3.63 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16z"/></svg>`,
+  mail:`<svg class="ic" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>`,
+  ig:`<svg class="ic" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>`,
+  back:`<svg class="ic" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>`,
+  heart:`<svg class="ic" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>`,
+  share:`<svg class="ic" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>`,
+  dn:`<svg class="ic" style="width:14px;height:14px" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>`,
+  up:`<svg class="ic" style="width:14px;height:14px" viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>`,
+  chk:`<svg class="ic" style="width:13px;height:13px;color:var(--terra)" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>`,
+};
+
+// ── DATA ───────────────────────────────────────────────────────────────────
+const CAFES=[
+  {id:'espresso',name:'Espresso Clássico',cat:'quentes',price:'R$ 6,00',short:'Espresso tradicional com notas de chocolate e caramelo.',desc:'Café espresso tradicional com notas de chocolate e caramelo. Servido na temperatura perfeita para realçar cada nuance do grão selecionado da região de Minas Gerais.',notes:['Chocolate','Caramelo','Nozes'],img:'https://images.unsplash.com/photo-1510707577719-ae7c14805e3a?w=600&q=80',history:'O espresso é a base de quase todas as bebidas do nosso cardápio. Selecionamos grãos 100% arábica de altitude, tostados artesanalmente em nossa torrefação parceira em Poços de Caldas.',reviews:[{name:'Ana P.',stars:5,text:'Perfeito! Cremoso e com aquele amargor equilibrado que eu adoro.'},{name:'Carlos M.',stars:4,text:'Muito bom, melhor espresso que já tomei em São Paulo.'}]},
+  {id:'cappuccino',name:'Cappuccino Artesanal',cat:'quentes',price:'R$ 9,00',short:'Espresso duplo com leite vaporizado e espuma cremosa.',desc:'Espresso duplo com leite vaporizado e uma delicada camada de espuma cremosa. A proporção perfeita entre café, leite e espuma cria uma harmonia única.',notes:['Cremoso','Suave','Equilibrado'],img:'https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=600&q=80',history:'Nosso cappuccino segue a tradição italiana clássica: 1/3 espresso, 1/3 leite vaporizado e 1/3 espuma. Usamos leite integral orgânico de fazendas da Serra da Mantiqueira.',reviews:[{name:'Julia R.',stars:5,text:'A espuma é incrivelmente cremosa. Voltarei sempre!'},{name:'Pedro S.',stars:5,text:'Cappuccino perfeito para acompanhar o croissant.'}]},
+  {id:'literario',name:'Café Literário',cat:'quentes',price:'R$ 12,00',short:'Nossa criação especial com baunilha e canela.',desc:'Nossa criação especial: espresso com toque de baunilha e canela, finalizado com arte latte. Cada xícara é uma obra de arte — literalmente.',notes:['Baunilha','Canela','Arte latte'],img:'https://images.unsplash.com/photo-1534778101976-62847782c213?w=600&q=80',badge:'Especial da Casa',history:'O Café Literário nasceu da inspiração nos cafés parisienses do século XIX, frequentados por escritores como Sartre e Simone de Beauvoir. É nossa bebida mais pedida e o símbolo do Grão & Poesia.',reviews:[{name:'Mariana F.',stars:5,text:'A arte no leite é linda e o sabor é inesquecível!'},{name:'Rafael L.',stars:5,text:'Peço toda vez que venho. É simplesmente incrível.'}]},
+  {id:'latte',name:'Latte Poético',cat:'quentes',price:'R$ 10,00',short:'Café suave com leite vaporizado para a leitura.',desc:'Café suave com leite vaporizado, ideal para acompanhar sua leitura favorita. Uma bebida que convida à contemplação e ao devaneio literário.',notes:['Suave','Cremoso','Delicado'],img:'https://images.unsplash.com/photo-1570968915860-54d5c301fa9f?w=600&q=80',history:'O latte perfeito para quem aprecia o café com toda a suavidade que o leite pode oferecer. Ideal para tardes de leitura prolongada.',reviews:[{name:'Camila O.',stars:4,text:'Meu companheiro ideal de leitura. Suave e gostoso.'},{name:'Bruno K.',stars:5,text:'Leve e delicioso. Perfeito para as manhãs.'}]},
+  {id:'mocha',name:'Mocha dos Versos',cat:'quentes',price:'R$ 11,00',short:'Espresso com chocolate belga e chantilly.',desc:'Espresso com chocolate belga e leite cremoso, coberto com chantilly e raspas de chocolate. Uma ode ao prazer que os sentidos podem experimentar.',notes:['Chocolate belga','Cremoso','Indulgente'],img:'https://images.unsplash.com/photo-1581996323441-1a4c51ccfac7?w=600&q=80',history:'Criado pela nossa barista chefe Fernanda, o Mocha dos Versos usa chocolate amargo belga 70% cacau, criando um equilíbrio perfeito entre o amargor do café e a doçura do chocolate.',reviews:[{name:'Leticia B.',stars:5,text:'Uma experiência indulgente e deliciosa!'},{name:'Diego N.',stars:4,text:'Muito bom! O chocolate belga faz toda a diferença.'}]},
+  {id:'macchiato',name:'Macchiato das Letras',cat:'quentes',price:'R$ 8,00',short:'Espresso marcado com espuma de leite.',desc:'Espresso marcado com espuma de leite. Forte e equilibrado, para quem aprecia a intensidade do café com um toque suave de cremosidade.',notes:['Intenso','Forte','Marcante'],img:'https://images.unsplash.com/photo-1594631252845-29fc4cc8cde9?w=600&q=80',history:'O macchiato, "manchado" em italiano, é para os verdadeiros apreciadores do espresso que desejam apenas um toque de leite para equilibrar a intensidade.',reviews:[{name:'Thiago V.',stars:5,text:'Para quem gosta de café de verdade, este é o pedido!'},{name:'Amanda C.',stars:4,text:'Forte e marcante, exatamente o que precisava.'}]},
+  {id:'coldbrew',name:'Cold Brew Narrativo',cat:'gelados',price:'R$ 13,00',short:'Extraído a frio por 16h, suave e refrescante.',desc:'Café extraído a frio por 16 horas, suave e refrescante. Servido com gelo e toque cítrico. A baixa temperatura de extração preserva os compostos naturais do grão.',notes:['Cítrico','Refrescante','Suave'],img:'https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=600&q=80',history:'Preparado toda madrugada, o Cold Brew fica em infusão por 16 horas em água filtrada à temperatura ambiente. O resultado é um concentrado suave com acidez natural.',reviews:[{name:'Isabela T.',stars:5,text:'Perfeito para os dias quentes. Refrescante e saboroso!'},{name:'Lucas M.',stars:5,text:'O melhor cold brew da cidade, sem dúvida.'}]},
+  {id:'icedlatte',name:'Iced Latte Poético',cat:'gelados',price:'R$ 11,00',short:'Espresso gelado com leite cremoso e gelo.',desc:'Espresso gelado com leite cremoso e gelo. A versão refrescante do clássico latte, mantendo toda a suavidade e cremosidade que você ama.',notes:['Gelado','Cremoso','Refrescante'],img:'https://images.unsplash.com/photo-1517701604599-bb29b565090c?w=600&q=80',history:'Nosso iced latte é preparado com espresso extraído na hora, despejado diretamente sobre gelo e leite cremoso.',reviews:[{name:'Fernanda A.',stars:4,text:'Refrescante e delicioso. Ótimo para o verão!'},{name:'Rodrigo P.',stars:5,text:'Cremoso mesmo gelado. Incrível!'}]},
+  {id:'frappuccino',name:'Frappuccino das Estações',cat:'gelados',price:'R$ 14,00',short:'Bebida gelada batida com café e calda especial.',desc:'Bebida gelada batida com café, leite e calda especial. Coberto com chantilly. Muda conforme as estações com sabores sazonais exclusivos.',notes:['Batido','Cremoso','Sazonal'],img:'https://images.unsplash.com/photo-1541167760496-1628856ab772?w=600&q=80',history:'Criado para celebrar cada estação do ano, apresenta sabores e ingredientes que mudam: baunilha e caramelo no inverno, frutas tropicais no verão.',reviews:[{name:'Vanessa S.',stars:5,text:'A calda sazonal é incrível!'},{name:'Eduardo L.',stars:4,text:'Delicioso e criativo. Amo a ideia sazonal!'}]},
+  {id:'affogato',name:'Affogato Literário',cat:'gelados',price:'R$ 15,00',short:'Sorvete de creme com espresso quente.',desc:'Sorvete de creme artesanal com espresso quente. A combinação perfeita de quente e frio, doce e amargo — uma metáfora perfeita para a boa literatura.',notes:['Cremoso','Intenso','Contraste'],img:'https://images.unsplash.com/photo-1488477181946-6428a0291777?w=600&q=80',history:'O affogato usa sorvete artesanal de creme produzido por gelateria parceira no bairro.',reviews:[{name:'Patricia H.',stars:5,text:'Uma experiência única! O contraste é perfeito.'},{name:'Marcos R.',stars:5,text:'Sofisticado e delicioso. Meu favorito!'}]},
+  {id:'croissant',name:'Croissant Artesanal',cat:'acompanhamentos',price:'R$ 8,00',short:'Croissant francês folhado com 3 opções de recheio.',desc:'Croissant francês folhado e amanteigado. Opções: simples, chocolate ou amêndoas. Assado na hora todas as manhãs.',notes:['Folhado','Crocante','Artesanal'],img:'https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=600&q=80',history:'Nossa confeiteira aprendeu a receita com uma boulangerie parisiense. Os croissants são fermentados por 24 horas e laminados com manteiga francesa.',reviews:[{name:'Sophie M.',stars:5,text:'O melhor croissant fora da França!'},{name:'Andre B.',stars:5,text:'Crocante por fora, macio por dentro. Perfeito!'}]},
+  {id:'bolo',name:'Bolo do Dia',cat:'acompanhamentos',price:'R$ 9,00',short:'Fatia do bolo especial do dia com sabores variados.',desc:'Fatia generosa do bolo especial do dia. Sempre frescos, preparados com ingredientes locais e sazonais.',notes:['Fresco','Artesanal','Sazonal'],img:'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600&q=80',history:'Nossa confeiteira cria um novo bolo a cada dia, inspirada na temporada e nos melhores ingredientes disponíveis.',reviews:[{name:'Giovanna F.',stars:5,text:'Sempre surpreendente!'},{name:'Henrique C.',stars:4,text:'Ótima ideia manter sempre diferente.'}]},
+];
+
+const EVENTS=[
+  {id:0,icon:'book',title:'Clube de Leitura',time:'Quintas, 19h',desc:'Encontros quinzenais para discutir literatura contemporânea e clássicos que marcaram gerações.',details:{next:'Próximos encontros',items:['"Cem Anos de Solidão" – García Márquez (29 mai)','"1984" – George Orwell (12 jun)','"A Insustentável Leveza do Ser" – Kundera (26 jun)'],note:'Entrada gratuita. Reserve pelo WhatsApp: (11) 98765-4321. Média: 15–20 pessoas por encontro.'}},
+  {id:1,icon:'cal',title:'Sarau Literário',time:'Último sábado, 20h',desc:'Noite de poesia, música e performances. Traga seus versos ou apenas venha apreciar.',details:{next:'Próximo: 31 de maio, 20h',items:['20h – Abertura musical','20h30 – Microfone aberto para poesia','22h – Performance com poeta convidado','23h – Encerramento'],note:'Inscrições para microfone: 15 min antes. Plateia: entrada livre. Consumação mínima: R$ 15,00.'}},
+  {id:2,icon:'coffee',title:'Degustação de Cafés',time:'Domingos, 16h',desc:'Aprenda sobre diferentes métodos de preparo e descubra novos sabores e aromas.',details:{next:'25 de maio – Cafés da América Central',items:['Degustação de 5 cafés especiais','Origem e notas de sabor','Demo: V60, Chemex, French Press','Apostila inclusa'],note:'Vagas: 12 pessoas. Investimento: R$ 45,00. Reservas pelo Instagram ou telefone.'}},
+  {id:3,icon:'pen',title:'Workshop de Escrita Criativa',time:'Sábados quinzenais, 14h',desc:'Oficina prática para desenvolver suas habilidades de escrita sob orientação de autor publicado.',badge:'Novo!',details:{next:'24 de maio – Construindo Personagens',items:['Técnicas de desenvolvimento de personagens','Exercícios práticos de escrita','Feedback em grupo','Dicas contra bloqueio criativo'],note:'Facilitadora: Marina Costa. Duração: 3h. Vagas: 8–12. Investimento: R$ 80,00 (inclui material e café).'}},
+];
+
+// ── STATE ──────────────────────────────────────────────────────────────────
+let S={page:'home',menuTab:'quentes',expandedEvent:null,cafeId:null,selectedSize:'P',favorited:false};
+function set(u){Object.assign(S,u);render();}
+
+// ── HELPERS ────────────────────────────────────────────────────────────────
+function starsHtml(n){return Array.from({length:5},(_,i)=>`<span class="star${i<n?'':' empty'}">★</span>`).join('');}
+function BackBar(label,fn){return `<div class="back-bar"><button class="back-btn" onclick="${fn}">${I.back} ${label}</button></div>`;}
+
+// ── SHARED ─────────────────────────────────────────────────────────────────
+function Nav(){
+  return `<nav>
+    <button class="nav-logo" onclick="nav('home')">${I.coffee} Grão & Poesia</button>
+    <ul class="nav-links">
+      <li><button class="${S.page==='home'?'active':''}" onclick="nav('home')">Início</button></li>
+      <li><button class="${S.page==='cardapio'||S.page==='cafe'?'active':''}" onclick="nav('cardapio')">Cardápio</button></li>
+      <li><button class="${S.page==='eventos'?'active':''}" onclick="nav('eventos')">Eventos</button></li>
+      <li><button onclick="navContact()">Contato</button></li>
+    </ul>
+  </nav>`;
+}
+
+function Footer(){
+  return `<footer id="contato">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">${I.coffee} Grão & Poesia</div>
+        <p class="footer-tagline">Onde cada café conta uma história e cada história aquece o coração.</p>
+      </div>
+      <div class="footer-col"><h4>Horário</h4><p>Segunda a Sexta: 8h – 22h<br>Sábado e Domingo: 9h – 23h</p></div>
+      <div class="footer-col">
+        <h4>Contato</h4>
+        <div class="c-item">${I.map} Rua das Letras, 123 – Centro</div>
+        <div class="c-item">${I.phone} (11) 98765-4321</div>
+        <div class="c-item">${I.mail} contato@graoepoesia.com.br</div>
+        <div class="c-item">${I.ig} @graoepoesia</div>
+      </div>
+    </div>
+    <div class="footer-copy">© 2026 Grão & Poesia. Feito com amor, café e poesia.</div>
+  </footer>`;
+}
+
+// ── PAGES ──────────────────────────────────────────────────────────────────
+function PageHome(){
+  const cards=CAFES.filter(c=>c.cat==='quentes').slice(0,3).map(c=>`
+    <div class="m-card clickable" onclick="nav('cafe','${c.id}')">
+      ${c.badge?`<div class="m-badge">${c.badge}</div>`:''}
+      <div class="m-top"><div style="display:flex;align-items:center;flex:1">${I.coffee}<span class="m-name" style="margin-left:8px">${c.name}</span></div><span class="m-price">${c.price}</span></div>
+      <p class="m-desc">${c.short}</p>
+    </div>`).join('');
+  const evMinis=EVENTS.map(ev=>`
+    <div class="ev-mini">
+      <div class="ev-ico">${I[ev.icon]}</div>
+      <div><h3>${ev.title}</h3><p>${ev.desc}</p><div class="ev-time">${ev.time}</div></div>
+    </div>`).join('');
+  return `<div class="page">
+    <section class="hero">
+      <div>
+        <div class="hero-badge">${I.coffee} Cafeteria Literária desde 2018</div>
+        <h1>Onde café encontra literatura</h1>
+        <p>Um refúgio aconchegante para amantes de café, livros e boa conversa. Cada xícara conta uma história, cada verso aquece a alma.</p>
+        <div class="btn-row">
+          <button class="btn-fill" onclick="nav('cardapio')">Ver Cardápio</button>
+          <button class="btn-ghost" onclick="nav('eventos')">Nossos Eventos</button>
+        </div>
+      </div>
+      <div class="hero-img-wrap">
+        <div class="hero-img-bg"></div>
+        <img src="https://images.unsplash.com/photo-1564849744694-348ecd00c279?w=900&q=80" alt="Interior da Cafeteria" loading="lazy"/>
+      </div>
+    </section>
+    <section class="about-strip">
+      <img src="https://images.unsplash.com/photo-1474366521946-c3d4b507abf2?w=800&q=80" alt="Barista preparando café" loading="lazy"/>
+      <div>
+        <div class="abt-eye">${I.book} Nossa História</div>
+        <h2>Nossa História</h2>
+        <p>Nascido do amor pela literatura e pelo café artesanal, o Grão & Poesia é mais que uma cafeteria. É um espaço onde palavras e aromas se entrelaçam, criando momentos inesquecíveis.</p>
+        <p>Desde 2018, servimos grãos selecionados e hospedamos saraus literários, clubs de leitura e encontros que celebram a arte da palavra escrita.</p>
+        <div class="stats">
+          <div><span class="stat-n">200+</span><span class="stat-l">Eventos realizados</span></div>
+          <div><span class="stat-n">50+</span><span class="stat-l">Variedades de café</span></div>
+        </div>
+      </div>
+    </section>
+    <section class="preview-sec">
+      <div class="sec-hdr">
+        <div class="sec-badge">☕ Nossos Grãos</div>
+        <h2>Cardápio em Destaque</h2>
+        <p>Cafés preparados com dedicação — clique para ver detalhes</p>
+      </div>
+      <div class="preview-grid">${cards}</div>
+      <div class="center-btn"><button class="btn-fill" onclick="nav('cardapio')">Ver Cardápio Completo</button></div>
+    </section>
+    <section class="events-preview">
+      <div class="sec-hdr">
+        <div class="sec-badge">📚 Cultura & Café</div>
+        <h2>Eventos Literários</h2>
+        <p>Momentos especiais que celebram a literatura e a comunidade</p>
+      </div>
+      <div class="ev-preview-grid">${evMinis}</div>
+      <div class="center-btn"><button class="btn-fill" style="background:var(--cream);color:var(--coffee)" onclick="nav('eventos')">Ver Todos os Eventos</button></div>
+    </section>
+    ${Footer()}
+  </div>`;
+}
+
+function PageCardapio(){
+  const tabs=[{id:'quentes',label:'Cafés Quentes'},{id:'gelados',label:'Cafés Gelados'},{id:'acompanhamentos',label:'Acompanhamentos'}];
+  const items=CAFES.filter(c=>c.cat===S.menuTab);
+  const tabsHtml=tabs.map(t=>`<button class="tab ${t.id===S.menuTab?'active':''}" onclick="setTab('${t.id}')">${t.label}</button>`).join('');
+  const cardsHtml=items.map(c=>`
+    <div class="m-card clickable" onclick="nav('cafe','${c.id}')">
+      ${c.badge?`<div class="m-badge">${c.badge}</div>`:''}
+      <div class="m-top"><div style="display:flex;align-items:center;flex:1">${I.coffee}<span class="m-name" style="margin-left:8px">${c.name}</span></div><span class="m-price">${c.price}</span></div>
+      <p class="m-desc">${c.desc.substring(0,90)}…</p>
+    </div>`).join('');
+  return `<div class="page">
+    ${BackBar('Voltar para o Início',"nav('home')")}
+    <div class="page-hero"><h1>Nosso Cardápio</h1><p>Cada bebida é preparada com dedicação e os melhores grãos selecionados</p></div>
+    <div class="cardapio-body">
+      <div class="tabs">${tabsHtml}</div>
+      <div class="menu-grid">${cardsHtml}</div>
+    </div>
+    ${Footer()}
+  </div>`;
+}
+
+function PageCafeDetail(){
+  const c=CAFES.find(x=>x.id===S.cafeId);
+  if(!c)return PageCardapio();
+  const related=CAFES.filter(x=>x.cat===c.cat&&x.id!==c.id).slice(0,3);
+  const relCards=related.map(r=>`
+    <div class="m-card clickable" onclick="nav('cafe','${r.id}')">
+      <div class="m-top"><div style="display:flex;align-items:center;flex:1">${I.coffee}<span class="m-name" style="margin-left:8px">${r.name}</span></div><span class="m-price">${r.price}</span></div>
+      <p class="m-desc">${r.short}</p>
+    </div>`).join('');
+  return `<div class="page">
+    ${BackBar('Voltar ao Cardápio',"nav('cardapio')")}
+    <div class="detail-body">
+      <div class="detail-img-wrap">
+        <div class="detail-img-bg"></div>
+        <img class="detail-img" src="${c.img}" alt="${c.name}" loading="lazy"/>
+      </div>
+      <div>
+        ${c.badge?`<div class="detail-badge">${c.badge}</div>`:''}
+        <h1 class="detail-name">${c.name}</h1>
+        <div class="detail-price">${c.price}</div>
+        <p class="detail-desc">${c.desc}</p>
+        <div class="detail-section"><h3>Tamanho</h3>
+          <div class="sizes">${['P','M','G'].map(s=>`<button class="size-btn ${S.selectedSize===s?'sel':''}" onclick="setSize('${s}')">${s}</button>`).join('')}</div>
+        </div>
+        <div class="detail-section"><h3>Notas de Sabor</h3>
+          <div class="tags">${c.notes.map(n=>`<span class="tag">${n}</span>`).join('')}</div>
+        </div>
+        <div class="detail-section"><h3>História</h3>
+          <p style="font-size:.88rem;line-height:1.75;color:rgba(92,51,23,.68)">${c.history}</p>
+        </div>
+        <div class="action-btns">
+          <button class="btn-terra">Pedir Agora</button>
+          <button class="btn-outline-sm ${S.favorited?'fav':''}" onclick="toggleFav()">${I.heart} ${S.favorited?'Favoritado':'Favoritar'}</button>
+          <button class="btn-outline-sm">${I.share} Compartilhar</button>
+        </div>
+      </div>
+    </div>
+    <div class="related-sec">
+      <div class="detail-section" style="margin-bottom:1.2rem"><h3>Avaliações</h3>
+        <div class="stars">${starsHtml(5)}<span style="font-family:var(--ff-l);font-size:.8rem;color:rgba(92,51,23,.5);margin-left:6px">5.0 (${c.reviews.length} avaliações)</span></div>
+      </div>
+      <div class="reviews">${c.reviews.map(r=>`<div class="review">
+        <div class="review-top"><span class="review-name">${r.name}</span><div class="stars" style="margin:0">${starsHtml(r.stars)}</div></div>
+        <p class="review-text">"${r.text}"</p>
+      </div>`).join('')}</div>
+    </div>
+    ${related.length?`<div class="related-sec"><h2>Você também pode gostar</h2><div class="related-grid">${relCards}</div></div>`:''}
+    ${Footer()}
+  </div>`;
+}
+
+function PageEventos(){
+  const cards=EVENTS.map(ev=>{
+    const isOpen=S.expandedEvent===ev.id;
+    const det=isOpen?`<div class="ev-details-panel">
+      <h4>${ev.details.next}</h4>
+      ${ev.details.items.map(i=>`<div class="ev-item">${I.chk}<span>${i}</span></div>`).join('')}
+      <div class="ev-note">${ev.details.note}</div>
+      <button class="ev-close-btn" onclick="toggleEv(${ev.id})">${I.up} Fechar Detalhes</button>
+    </div>`:'';
+    return `<div class="ev-card">
+      <div class="ev-card-top">
+        <div class="ev-icon">${I[ev.icon]}</div>
+        <div style="flex:1">
+          <h3>${ev.title}${ev.badge?` <span class="m-badge gold">${ev.badge}</span>`:''}</h3>
+          <p>${ev.desc}</p>
+          <div class="ev-time-tag">${ev.time}</div>
+        </div>
+      </div>
+      <button class="ev-btn" onclick="toggleEv(${ev.id})">${isOpen?I.up+' Fechar':I.dn+' Ver Detalhes'}</button>
+      ${det}
+    </div>`;
+  }).join('');
+  return `<div class="page">
+    ${BackBar('Voltar para o Início',"nav('home')")}
+    <div class="page-hero"><h1>Eventos Literários</h1><p>Momentos especiais que celebram a literatura e a comunidade</p></div>
+    <div class="ev-page-body"><div class="ev-full-grid">${cards}</div></div>
+    ${Footer()}
+  </div>`;
+}
+
+// ── RENDER ─────────────────────────────────────────────────────────────────
+function render(){
+  let body='';
+  if(S.page==='home')body=PageHome();
+  else if(S.page==='cardapio')body=PageCardapio();
+  else if(S.page==='cafe')body=PageCafeDetail();
+  else if(S.page==='eventos')body=PageEventos();
+  document.getElementById('root').innerHTML=Nav()+body;
+  window.scrollTo(0,0);
+}
+
+// ── ACTIONS ────────────────────────────────────────────────────────────────
+window.nav=(page,id)=>set({page,cafeId:id||null,favorited:false,selectedSize:'P'});
+window.navContact=()=>{set({page:'home'});setTimeout(()=>{const el=document.getElementById('contato');if(el)el.scrollIntoView({behavior:'smooth'});},100);};
+window.setTab=(tab)=>set({menuTab:tab});
+window.toggleEv=(id)=>set({expandedEvent:S.expandedEvent===id?null:id});
+window.setSize=(s)=>set({selectedSize:s});
+window.toggleFav=()=>set({favorited:!S.favorited});
+
+render();
+</script>
+</body>
+</html>
